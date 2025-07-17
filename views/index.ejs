@@ -1,22 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include("partials/head") %>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.178.0/build/three.module.js",
+    "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.178.0/examples/jsm/"
+  }
+}
+</script>
 
-<head>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<script type="module" src="/js/3d-background.js"></script>
 
-  <link rel="stylesheet" href="
-  https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" integrity="sha512-..."
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="/styles.css">
-  <%- include("partials/head") %>
-</head>
+<body>
+  
+  <canvas id="bgCanvas"></canvas>
 
-<body style="background-color:#dfdfdf">
+  <!-- Toggle day/night -->
+  <button id="toggleMode" class="btn btn-secondary rounded-circle"><i id="togglebtn" class="bi bi-moon-fill" style="color: white;"></i></button>
 
+  <!-- Overlay content -->
+  <div class="content container">
+    <img src="/img/black-logo.png" id="black-logo" alt="Boeing Aerospace" class="content">
+    <img src="/img/white-logo.png" id="white-logo" alt="Boeing Aerospace" class="content" style="display: none; position: relative;">
+    <!-- <h1>Boeing Aerospace</h1> -->
+    <p id="tagline" style="position: relative;">Engineering the future of flight</p>
 
+    <!-- You can add navbar, hero sections, etc. here -->
+  </div>
 
-  <div class="container mt-4 bg-white p-4 rounded shadow-sm">
+<!-- //paste here -->
 
+  <div id="query-tracker" class="container mt-4 mb-5 container-background p-4 rounded shadow-sm d-none">
+  
     <header class="main-header">
       <div class="header-content">
         <h1 class="app-title text-uppercase">Query Tracker</h1>
@@ -35,10 +49,7 @@
           <span class="stat-icon stat-icon-closed"></span>
           <div><strong>0</strong> Open</div>
         </div>
-        <!-- <div class="stat" id="inProgressQueries">
-                    <span class="stat-icon stat-icon-progress"></span>
-                    <div><strong>0</strong> In Progress</div>
-                </div> -->
+        
         <div class="stat" id="closedQueries">
           <span class="stat-icon stat-icon-open"></span>
           <div><strong>0</strong> Closed</div>
@@ -46,9 +57,30 @@
       </div>
     </section>
 
-    <form action="/add" method="POST" enctype="multipart/form-data" class="mt-3">
-      <%- include("./partials/queryForm") %>
-    </form>
+
+    <!-- Open New Query Button -->
+    <div class="text-end mb-4">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newQueryModal">
+        <i class="bi bi-plus-circle me-1"></i> Open New Query
+      </button>
+    </div>
+
+    <!-- New Query Modal -->
+    <div class="modal fade" id="newQueryModal" tabindex="-1" aria-labelledby="newQueryModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="newQueryModalLabel">New Query</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/add" method="POST" enctype="multipart/form-data" id="queryFormModal">
+              <%- include("./partials/queryForm") %>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <hr />
 
@@ -151,94 +183,7 @@
     </div>
 
 
-    <!-- ✅ Export to CSV Button -->
-    <!-- <div class="text-end mb-3">
-      <a href="/export" class="btn btn-success">Export to CSV</a>
-    </div>
-
-    <h3>Queries</h3>
-
-    <div class="row">
-      <% queries.forEach(query=> { %>
-        <div class="col-md-6 mb-3">
-          <div class="card shadow-sm border">
-            <div class="card-body">
-              <h5 class="card-title text-primary">
-                <%= query.pdfFiles[0] || 'No File Attached' %>
-              </h5>
-
-              <p class="card-text mb-1"><strong>Author:</strong>
-                <%= query.authorName %>
-              </p>
-              <p class="card-text mb-1"><strong>Revision:</strong>
-                <%= query.revision %> | <strong>SB Number:</strong>
-                  <%= query.sbNumber %>
-              </p>
-              <p class="card-text mb-1"><strong>Model:</strong>
-                <%= query.model %> | <strong>Status:</strong>
-                  <%= query.status %>
-              </p>
-              <p class="card-text mb-1"><strong>Resolver:</strong>
-                <%= query.resolverName %> | <strong>Resolved Date:</strong>
-                  <%= query.resolvedAt ? query.resolvedAt.toISOString().slice(0, 10) : '-' %>
-              </p>
-              <p class="card-text"><strong>Comment:</strong>
-                <%= query.comment %>
-              </p>
-
-              <% if (query.pdfFiles.length> 0) { %>
-                <button class="btn btn-primary btn-sm"
-                  onclick="openPDFModal('/pdf/<%= query.pdfFiles[0] %>')">View</button>
-                <% } else { %>
-                  <span class="badge bg-secondary">No PDF</span>
-                  <% } %>
-            </div>
-          </div>
-        </div>
-        <% }) %>
-    </div>
-
-
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Author</th>
-          <th>Model</th>
-          <th>Status</th>
-          <th>Created</th>
-          <th>Resolved</th>
-          <th>PDF</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% queries.forEach(query=> { %>
-          <tr>
-            <td>
-              <%= query.authorName %>
-            </td>
-            <td>
-              <%= query.model %>
-            </td>
-            <td>
-              <%= query.status %>
-            </td>
-            <td>
-              <%= query.createdAt.toDateString() %>
-            </td>
-            <td>
-              <%= query.resolvedAt ? query.resolvedAt.toDateString() : '-' %>
-            </td>
-            <td>
-
-                <% query.pdfFiles.forEach(file=> { %>
-                <a href="#" onclick="openPDFModal('/pdf/<%= file %>')">View PDF</a><br />
-                <% }) %>
-
-            </td>
-          </tr>
-          <% }) %>
-      </tbody>
-    </table> -->
+    
 
     <!-- ✅ Modal PDF Viewer -->
     <div id="pdfViewerContainer" class="modal" aria-label="PDF Viewer">
@@ -261,7 +206,16 @@
     </div> -->
 
   </div>
-  <script src="/script.js"></script>
+  
+  <!-- Bootstrap JS (for modal functionality) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  
+<script>
+  
+</script>
 </body>
-
 </html>
+
+
+<!-- <i class="bi bi-list-ul"></i> -->
+ <!-- <i class="bi bi-grid-fill"></i> -->

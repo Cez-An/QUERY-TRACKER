@@ -1,11 +1,11 @@
-const Query = require('../models/Query');
-const path = require('path');
-const { Parser } = require('json2csv');
+import Query, { find, findByIdAndUpdate } from '../models/Query';
+import { join } from 'path';
+import { Parser } from 'json2csv';
 
 // Export Queries to CSV
-exports.exportToCSV = async (req, res) => {
+export async function exportToCSV(req, res) {
   try {
-    const queries = await Query.find().lean(); // Use lean for plain JS objects
+    const queries = await find().lean(); // Use lean for plain JS objects
 
     const fields = [
       'authorName',
@@ -29,10 +29,10 @@ exports.exportToCSV = async (req, res) => {
   } catch (err) {
     res.status(500).send('Failed to export CSV: ' + err.message);
   }
-};
+}
 
 // Create new query
-exports.createQuery = async (req, res) => {
+export async function createQuery(req, res) {
   try {
     const pdfFiles = req.files ? req.files.map(file => file.filename) : [];
 
@@ -46,10 +46,10 @@ exports.createQuery = async (req, res) => {
   } catch (err) {
     res.status(500).send('Error saving query: ' + err.message);
   }
-};
+}
 
 // Update query status and attach PDFs
-exports.updateQuery = async (req, res) => {
+export async function updateQuery(req, res) {
   try {
     const pdfFiles = req.files ? req.files.map(file => file.filename) : [];
 
@@ -60,21 +60,21 @@ exports.updateQuery = async (req, res) => {
       $push: { pdfFiles: { $each: pdfFiles } }
     };
 
-    await Query.findByIdAndUpdate(req.params.id, updateData);
+    await findByIdAndUpdate(req.params.id, updateData);
     res.redirect('/');
   } catch (err) {
     res.status(500).send('Error updating query: ' + err.message);
   }
-};
+}
 
 // Get all queries
-exports.getAllQueries = async (req, res) => {
-  const queries = await Query.find().sort({ createdAt: -1 });
+export async function getAllQueries(req, res) {
+  const queries = await find().sort({ createdAt: -1 });
   res.render('index', { queries });
-};
+}
 
 // Serve PDF
-exports.viewPDF = (req, res) => {
-  const filePath = path.join(__dirname, '../uploads', req.params.filename);
+export function viewPDF(req, res) {
+  const filePath = join(__dirname, '../uploads', req.params.filename);
   res.sendFile(filePath);
-};
+}

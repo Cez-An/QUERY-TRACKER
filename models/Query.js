@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import { Schema, model as _model } from 'mongoose';
 
-const querySchema = new mongoose.Schema({
+const querySchema = new Schema({
   authorName: String,
   sbNumber: String,
   model: String,
@@ -13,4 +13,4 @@ const querySchema = new mongoose.Schema({
   pdfFiles: [String], // stores file paths or names
 });
 
-module.exports = mongoose.model('Query', querySchema);
+export default _model('Query', querySchema);

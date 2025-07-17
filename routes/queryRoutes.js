@@ -1,21 +1,21 @@
-const express = require('express');
-const router = express.Router();
-const multer = require('multer');
-const path = require('path');
-const queryController = require('../controllers/queryController');
+import { Router } from 'express';
+const router = Router();
+import multer, { diskStorage } from 'multer';
+import path from 'path';
+import { getAllQueries, createQuery, updateQuery, viewPDF, exportToCSV } from '../controllers/queryController';
 
 // Multer config
-const storage = multer.diskStorage({
+const storage = diskStorage({
   destination: (req, file, cb) => cb(null, 'uploads/'),
   filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
 });
 const upload = multer({ storage });
 
 // Routes
-router.get('/', queryController.getAllQueries);
-router.post('/add', upload.array('pdfFiles'), queryController.createQuery);
-router.post('/update/:id', upload.array('pdfFiles'), queryController.updateQuery);
-router.get('/pdf/:filename', queryController.viewPDF);
-router.get('/export', queryController.exportToCSV);
+router.get('/', getAllQueries);
+router.post('/add', upload.array('pdfFiles'), createQuery);
+router.post('/update/:id', upload.array('pdfFiles'), updateQuery);
+router.get('/pdf/:filename', viewPDF);
+router.get('/export', exportToCSV);
 
-module.exports = router;
+export default router;

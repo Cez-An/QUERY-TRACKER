@@ -1,0 +1,264 @@
+<div class="container mt-4 container-background p-4 rounded shadow-sm">
+
+    <header class="main-header">
+      <div class="header-content">
+        <h1 class="app-title text-uppercase">Query Tracker</h1>
+        <p class="subtitle">Fleet SB Team</p>
+      </div>
+    </header>
+
+    <section class="dashboard-section card">
+      <h2 class="section-title">Dashboard</h2>
+      <div class="stats">
+        <div class="stat" id="totalQueries">
+          <span class="stat-icon stat-icon-total"></span>
+          <div><strong>0</strong> Total Queries</div>
+        </div>
+        <div class="stat" id="openQueries">
+          <span class="stat-icon stat-icon-closed"></span>
+          <div><strong>0</strong> Open</div>
+        </div>
+        
+        <div class="stat" id="closedQueries">
+          <span class="stat-icon stat-icon-open"></span>
+          <div><strong>0</strong> Closed</div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Open New Query Button -->
+    <div class="text-end mb-4">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newQueryModal">
+        <i class="bi bi-plus-circle me-1"></i> Open New Query
+      </button>
+    </div>
+
+    <!-- New Query Modal -->
+    <div class="modal fade" id="newQueryModal" tabindex="-1" aria-labelledby="newQueryModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="newQueryModalLabel">New Query</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/add" method="POST" enctype="multipart/form-data" id="queryFormModal">
+              <%- include("./partials/queryForm") %>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- Toggle Button -->
+    <div class="text-end mb-3">
+      <button class="btn btn-secondary" onclick="toggleView()">Toggle View</button>
+      <a href="/export" class="btn btn-success ms-2">Export to CSV</a>
+    </div>
+
+    <!-- 🔁 Card View -->
+    <div id="cardView" class="row">
+
+      <% queries.forEach((query, index)=> { %>
+        <div class="col-md-6 mb-3">
+          <div class="card shadow-sm border">
+            <div class="card-body">
+              <h5 class="card-title text-primary">
+                <%= query.pdfFiles[0] || 'No File Attached' %>
+              </h5>
+              <p class="card-text mb-1"><strong>Author:</strong>
+                <%= query.authorName %>
+              </p>
+              <p class="card-text mb-1"><strong>Created At:&nbsp;</strong>
+                <%= query.createdAt.toDateString() %>
+              </p>
+              <p class="card-text mb-1"><strong>Revision:</strong>
+                <%= query.revision %> | <strong>SB Number:</strong>
+                  <%= query.sbNumber %>
+              </p>
+              <p class="card-text mb-1"><strong>Model:</strong>
+                <%= query.model %> | <strong>Status:</strong>
+                  <%= query.status %>
+              </p>
+              <p class="card-text mb-1"><strong>Resolver:</strong>
+                <%= query.resolverName %> | <strong>Resolved Date:</strong>
+                  <%= query.resolvedAt ? query.resolvedAt.toISOString().slice(0, 10) : '-' %>
+              </p>
+              <p class="card-text"><strong>Comment:</strong>
+                <%= query.comment %>
+              </p>
+
+              <!-- Hidden input -->
+              <input type="file" id="pdfInput-<%= index %>" accept="application/pdf" style="display: none;"
+                name="pdfFile" onchange="handleFileChange(<%= index %>)" />
+
+              <!-- Custom upload button -->
+              <button type="button" class="btn btn-primary btn-sm"
+                onclick="document.getElementById('pdfInput-<%= index %>').click();">
+                Click here to upload PDF
+              </button>
+
+              <!-- Selected file name -->
+              <p id="selectedFile-<%= index %>" class="mt-2 text-primary text-uppercase"></p>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+    </div>
+
+    <!-- 🔁 Table View -->
+    <div id="tableView" style="display: none;">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Author</th>
+            <th>Model</th>
+            <th>Status</th>
+            <th>Created</th>
+            <th>Resolved</th>
+            <th>PDF</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% queries.forEach(query=> { %>
+            <tr>
+              <td>
+                <%= query.authorName %>
+              </td>
+              <td>
+                <%= query.model %>
+              </td>
+              <td>
+                <%= query.status %>
+              </td>
+              <td>
+                <%= query.createdAt.toDateString() %>
+              </td>
+              <td>
+                <%= query.resolvedAt ? query.resolvedAt.toDateString() : '-' %>
+              </td>
+              <td>
+                <% query.pdfFiles.forEach(file=> { %>
+                  <a href="#" onclick="openPDFModal('/pdf/<%= file %>')">View PDF</a><br />
+                  <% }) %>
+              </td>
+            </tr>
+            <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+
+    <!-- ✅ Export to CSV Button -->
+    <!-- <div class="text-end mb-3">
+      <a href="/export" class="btn btn-success">Export to CSV</a>
+    </div>
+
+    <h3>Queries</h3>
+
+    <div class="row">
+      <% queries.forEach(query=> { %>
+        <div class="col-md-6 mb-3">
+          <div class="card shadow-sm border">
+            <div class="card-body">
+              <h5 class="card-title text-primary">
+                <%= query.pdfFiles[0] || 'No File Attached' %>
+              </h5>
+
+              <p class="card-text mb-1"><strong>Author:</strong>
+                <%= query.authorName %>
+              </p>
+              <p class="card-text mb-1"><strong>Revision:</strong>
+                <%= query.revision %> | <strong>SB Number:</strong>
+                  <%= query.sbNumber %>
+              </p>
+              <p class="card-text mb-1"><strong>Model:</strong>
+                <%= query.model %> | <strong>Status:</strong>
+                  <%= query.status %>
+              </p>
+              <p class="card-text mb-1"><strong>Resolver:</strong>
+                <%= query.resolverName %> | <strong>Resolved Date:</strong>
+                  <%= query.resolvedAt ? query.resolvedAt.toISOString().slice(0, 10) : '-' %>
+              </p>
+              <p class="card-text"><strong>Comment:</strong>
+                <%= query.comment %>
+              </p>
+
+              <% if (query.pdfFiles.length> 0) { %>
+                <button class="btn btn-primary btn-sm"
+                  onclick="openPDFModal('/pdf/<%= query.pdfFiles[0] %>')">View</button>
+                <% } else { %>
+                  <span class="badge bg-secondary">No PDF</span>
+                  <% } %>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+    </div>
+
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Author</th>
+          <th>Model</th>
+          <th>Status</th>
+          <th>Created</th>
+          <th>Resolved</th>
+          <th>PDF</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% queries.forEach(query=> { %>
+          <tr>
+            <td>
+              <%= query.authorName %>
+            </td>
+            <td>
+              <%= query.model %>
+            </td>
+            <td>
+              <%= query.status %>
+            </td>
+            <td>
+              <%= query.createdAt.toDateString() %>
+            </td>
+            <td>
+              <%= query.resolvedAt ? query.resolvedAt.toDateString() : '-' %>
+            </td>
+            <td>
+
+                <% query.pdfFiles.forEach(file=> { %>
+                <a href="#" onclick="openPDFModal('/pdf/<%= file %>')">View PDF</a><br />
+                <% }) %>
+
+            </td>
+          </tr>
+          <% }) %>
+      </tbody>
+    </table> -->
+
+    <!-- ✅ Modal PDF Viewer -->
+    <div id="pdfViewerContainer" class="modal" aria-label="PDF Viewer">
+      <div class="modal-content">
+        <button id="closePdfBtn" class="btn btn-icon close-btn" title="Close PDF Viewer">
+          close <i class="bi bi-x-lg text-danger "></i>
+        </button>
+
+        <iframe id="pdfViewer" title="PDF Viewer"></iframe>
+      </div>
+    </div>
+
+
+    <!-- <div id="pdfViewerContainer" class="border p-3 mt-4" style="display: none;">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <strong>PDF Preview</strong>
+        <button class="btn btn-danger btn-sm" onclick="closePDF()">Close</button>
+      </div>
+      <iframe id="pdfFrame" src="" width="100%" height="600px" style="border: 1px solid #ccc;"></iframe>
+    </div> -->
+
+  </div>

@@ -1,0 +1,179 @@
+body {
+  background-image: url("/img/clouds.jpg");
+  background-size: auto;
+}
+.container-background {
+  background-color: rgba(255, 255, 255, 0.562);
+  backdrop-filter: blur(10px);
+}
+.main-header {
+  width: 100%;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.08);
+  padding-bottom: 1.5rem;
+}
+
+.header-content {
+  width: 100%;
+  background: linear-gradient(90deg,  #5b6672 0%, #c9c9c9 100%);
+  padding: 30px 20px;
+  color: white;
+  border-radius: 6px;
+}
+
+/* Modal PDF Viewer Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  background-color: #ffffff;
+  margin: 5% auto;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 1000px;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+#pdfViewer {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.close-btn {
+  align-self: flex-end;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #333;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(37, 99, 235, 0.07);
+  padding: 2rem 2rem 1.5rem 2rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.dashboard-section {
+  margin-bottom: 0;
+}
+.section-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #2563eb;
+  margin: 0 0 1.2rem 0;
+  letter-spacing: 0.5px;
+}
+.stats {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.stat {
+  background: #f3f6fa;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.04);
+  padding: 1.2rem 1.5rem;
+  flex: 1 1 160px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 150px;
+  transition: box-shadow 0.2s;
+}
+.stat:hover {
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.1);
+}
+.stat-icon {
+  font-size: 1.7rem;
+  opacity: 0.7;
+  margin-right: 0.2rem;
+}
+.stat-icon-total::before {
+  content: "📄";
+}
+.stat-icon-open::before {
+  content: "🟢";
+}
+.stat-icon-progress::before {
+  content: "🟡";
+}
+.stat-icon-closed::before {
+  content: "🔵";
+}
+.stat strong {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #2563eb;
+  display: block;
+}
+
+/* 3d modal */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: auto; /* allow height to grow */
+  overflow-x: hidden; /* only block horizontal scroll */
+}
+canvas {
+  background: transparent;
+}
+
+
+#bgCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none; /* ✅ don't block scrolling or mouse events */
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  color: white;
+  padding: 2rem;
+}
+
+#toggleMode {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+}
+#tagline{
+  z-index: 1;
+  color: white;
+  margin-top: -50px;
+  margin-left: 100px;
+}
+#query-tracker {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 3s cubic-bezier(0.25, 0.1, 0.25, 1), visibility 0s linear 3s;
+}
+
+#query-tracker.fade-inn {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
