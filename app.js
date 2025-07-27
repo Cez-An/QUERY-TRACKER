@@ -1,7 +1,13 @@
 import express from 'express';
 import { connect } from 'mongoose';
 import { join } from 'path';
-import queryRoutes from './routes/queryRoutes';
+import queryRoutes from './routes/queryRoutes.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 
 const app = express();
 

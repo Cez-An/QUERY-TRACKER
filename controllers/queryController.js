@@ -1,11 +1,16 @@
-import Query, { find, findByIdAndUpdate } from '../models/Query';
-import { join } from 'path';
+import Query from '../models/Query.js';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
 import { Parser } from 'json2csv';
+
+// For __dirname equivalent in ES Module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Export Queries to CSV
 export async function exportToCSV(req, res) {
   try {
-    const queries = await find().lean(); // Use lean for plain JS objects
+    const queries = await Query.find().lean(); // ✅ Correct model call
 
     const fields = [
       'authorName',
@@ -57,10 +62,17 @@ export async function updateQuery(req, res) {
       ...req.body,
       status: 'Closed',
       resolvedAt: new Date(),
-      $push: { pdfFiles: { $each: pdfFiles } }
     };
 
-    await findByIdAndUpdate(req.params.id, updateData);
+    await Query.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: updateData,
+        $push: { pdfFiles: { $each: pdfFiles } }
+      },
+      { new: true }
+    );
+
     res.redirect('/');
   } catch (err) {
     res.status(500).send('Error updating query: ' + err.message);
@@ -69,8 +81,12 @@ export async function updateQuery(req, res) {
 
 // Get all queries
 export async function getAllQueries(req, res) {
-  const queries = await find().sort({ createdAt: -1 });
-  res.render('index', { queries });
+  try {
+    const queries = await Query.find().sort({ createdAt: -1 }).lean();
+    res.render('index', { queries });
+  } catch (err) {
+    res.status(500).send('Error fetching queries: ' + err.message);
+  }
 }
 
 // Serve PDF

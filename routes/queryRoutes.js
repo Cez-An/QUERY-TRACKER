@@ -2,7 +2,7 @@ import { Router } from 'express';
 const router = Router();
 import multer, { diskStorage } from 'multer';
 import path from 'path';
-import { getAllQueries, createQuery, updateQuery, viewPDF, exportToCSV } from '../controllers/queryController';
+import { getAllQueries, createQuery, updateQuery, viewPDF, exportToCSV } from '../controllers/queryController.js';
 
 // Multer config
 const storage = diskStorage({
