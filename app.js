@@ -1,25 +1,23 @@
 import express from 'express';
-import { connect } from 'mongoose';
 import { join } from 'path';
+import dotenv from "dotenv"
+import connectDB from './config/db.js';
 import queryRoutes from './routes/queryRoutes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
-
+dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-
+connectDB();
 const app = express();
 
-connect('mongodb://127.0.0.1:27017/query-tracker')
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
-
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
-app.use('/uploads', express.static(join(__dirname, 'uploads')));
+app.use(express.static(join(__dirname, 'public')));
+app.use(express.json());
+
 app.set('view engine', 'ejs');
 
 app.use('/', queryRoutes);
 
-app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+app.listen(process.env.PORT || 3000, () => console.log(`
+  Server running on http://localhost:3000`));

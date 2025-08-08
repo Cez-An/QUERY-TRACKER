@@ -1,0 +1,123 @@
+<!-- Add New Query Modal
+<div class="modal fade modal-lg" id="AddQueryModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Query</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" id="addQueryForm">
+                <div class="modal-body">
+                    <div class="d-flex gap-2">
+
+                        <div class="col-6">
+                            <label for="" class="modal-title">Author Name</label><br>
+                            <input type="text" placeholder="Author Name" id="author"
+                                class="form-input form-control"><br>
+
+                            <label for="" class="modal-title">Model</label><br>
+                            <select id="aircraftSelect" class="form-select">
+                                <option value="">Select an aircraft model</option>
+                            </select>
+
+                            <label for="" class="modal-title">Resolver Name</label><br>
+                            <input type="text" placeholder="Resolver Name" id="resolvername"
+                                class="form-input form-control">
+
+                        </div>
+
+                        <div class="col-6">
+                            <label for="" class="modal-title">SB number</label><br>
+                            <input type="text" placeholder="SB Number" id="SBnumber"
+                                class="form-input form-control"><br>
+
+                            <label for="" class="modal-title">Revision</label><br>
+                            <input type="text" placeholder="Revison" id="revision" class="form-input form-control"><br>
+
+
+
+                        </div>
+                    </div><br>
+                    <label for="" class="modal-title">Comment</label><br>
+                    <textarea name="" id="comments" rows="4" placeholder="Enter your Comment here..."
+                        class="w-100 form-control"></textarea>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveQueryBtn">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<!-- Add New Query Modal -->
+<div class="modal fade" id="AddQueryModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Query</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <!-- Modal Form -->
+      <form id="addQueryForm">
+        <div class="modal-body">
+          <div class="d-flex gap-3 flex-wrap">
+
+            <!-- Left Column -->
+            <div class="col-md-12">
+              <div class="mb-3">
+                <label class="form-label">Author Name</label>
+                <input type="text" id="author" placeholder="Author Name" class="form-control" />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Model</label>
+                <select id="aircraftSelect" class="form-select">
+                  <option value="">Select an aircraft model</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Resolver Name</label>
+                <input type="text" id="resolvername" placeholder="Resolver Name" class="form-control" />
+              </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-md-12">
+              <div class="mb-3">
+                <label class="form-label">SB Number</label>
+                <input type="text" id="SBnumber" placeholder="SB Number" class="form-control" />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Revision</label>
+                <input type="text" id="revision" placeholder="Revision" class="form-control" />
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Comment Field -->
+          <div class="mb-3">
+            <label class="form-label">Comment</label>
+            <textarea id="comments" rows="4" placeholder="Enter your comment here..." class="form-control w-100"></textarea>
+          </div>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="saveQueryBtn">Save changes</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

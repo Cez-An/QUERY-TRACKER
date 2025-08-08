@@ -1,0 +1,128 @@
+[
+  {
+    "Model Number":"707",
+    "Model Name":"Boeing 707",
+    "Category":"Commercial",
+    "Notes":"First successful commercial jet airliner"
+  },
+  {
+    "Model Number":"717",
+    "Model Name":"Boeing 717",
+    "Category":"Commercial",
+    "Notes":"Originally McDonnell Douglas MD-95"
+  },
+  {
+    "Model Number":"727",
+    "Model Name":"Boeing 727",
+    "Category":"Commercial",
+    "Notes":"Trijet used for short- to medium-range routes"
+  },
+  {
+    "Model Number":"737",
+    "Model Name":"Boeing 737",
+    "Category":"Commercial",
+    "Notes":"Most produced jet airliner (includes Classic, NG, MAX)"
+  },
+  {
+    "Model Number":"747",
+    "Model Name":"Boeing 747",
+    "Category":"Commercial",
+    "Notes":"Iconic jumbo jet; various versions including 747-8"
+  },
+  {
+    "Model Number":"757",
+    "Model Name":"Boeing 757",
+    "Category":"Commercial",
+    "Notes":"Medium narrow-body; out of production"
+  },
+  {
+    "Model Number":"767",
+    "Model Name":"Boeing 767",
+    "Category":"Commercial",
+    "Notes":"Widebody used for long-haul and cargo"
+  },
+  {
+    "Model Number":"777",
+    "Model Name":"Boeing 777",
+    "Category":"Commercial",
+    "Notes":"Long-range twin-engine jet; includes 777X"
+  },
+  {
+    "Model Number":"787",
+    "Model Name":"Boeing 787 Dreamliner",
+    "Category":"Commercial",
+    "Notes":"Modern composite widebody aircraft"
+  },
+  {
+    "Model Number":"B-17",
+    "Model Name":"Flying Fortress",
+    "Category":"Military",
+    "Notes":"WWII heavy bomber"
+  },
+  {
+    "Model Number":"B-29",
+    "Model Name":"Superfortress",
+    "Category":"Military",
+    "Notes":"WWII bomber; dropped atomic bombs"
+  },
+  {
+    "Model Number":"B-52",
+    "Model Name":"Stratofortress",
+    "Category":"Military",
+    "Notes":"Long-range strategic bomber still in service"
+  },
+  {
+    "Model Number":"C-17",
+    "Model Name":"Globemaster III",
+    "Category":"Military",
+    "Notes":"Large military transport aircraft"
+  },
+  {
+    "Model Number":"F-15",
+    "Model Name":"Eagle",
+    "Category":"Military",
+    "Notes":"Twin-engine tactical fighter"
+  },
+  {
+    "Model Number":"F\/A-18",
+    "Model Name":"Hornet \/ Super Hornet",
+    "Category":"Military",
+    "Notes":"Multirole fighter for Navy and Marines"
+  },
+  {
+    "Model Number":"KC-46",
+    "Model Name":"Pegasus",
+    "Category":"Military",
+    "Notes":"Aerial refueling tanker based on 767"
+  },
+  {
+    "Model Number":"P-8A",
+    "Model Name":"Poseidon",
+    "Category":"Military",
+    "Notes":"Maritime patrol aircraft based on 737"
+  },
+  {
+    "Model Number":"CH-47",
+    "Model Name":"Chinook",
+    "Category":"Military Helicopter",
+    "Notes":"Heavy-lift tandem-rotor helicopter"
+  },
+  {
+    "Model Number":"AH-64",
+    "Model Name":"Apache",
+    "Category":"Military Helicopter",
+    "Notes":"Attack helicopter used worldwide"
+  },
+  {
+    "Model Number":"X-37B",
+    "Model Name":"Orbital Test Vehicle",
+    "Category":"Experimental\/Space",
+    "Notes":"Reusable spaceplane operated by the U.S. Space Force"
+  },
+  {
+    "Model Number":"CST-100",
+    "Model Name":"Starliner",
+    "Category":"Space",
+    "Notes":"Commercial crew capsule developed for NASA"
+  }
+]

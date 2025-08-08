@@ -1,16 +1,16 @@
-import Query from '../models/Query.js';
+import Query from '../models/querySchema.js';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { Parser } from 'json2csv';
+import {generateQueryNumber} from '../helpers/queryNumbergenerator.js';
 
-// For __dirname equivalent in ES Module
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Export Queries to CSV
 export async function exportToCSV(req, res) {
   try {
-    const queries = await Query.find().lean(); // ✅ Correct model call
+    const queries = await Query.find().lean();
 
     const fields = [
       'authorName',
@@ -39,17 +39,32 @@ export async function exportToCSV(req, res) {
 // Create new query
 export async function createQuery(req, res) {
   try {
-    const pdfFiles = req.files ? req.files.map(file => file.filename) : [];
+   
+    const { author, SBnumber, model, revision, status, resolverName, comments } = req.body;
+    if (!author || !SBnumber || !model || !revision || !resolverName) {
+      return res.status(400).json({ success: false, message: 'Please fill in all required fields.' });
+    }
+
+    const queryNumber = generateQueryNumber();
 
     const query = new Query({
-      ...req.body,
-      pdfFiles,
+      queryNumber: queryNumber,
+      authorName: author,
+      sbNumber: SBnumber,
+      model: model,
+      revision: revision,
+      status: 'Open',
+      resolverName: resolverName,
+      createdAt: new Date(),
+      resolvedAt: null,
+      comment: comments
     });
 
     await query.save();
-    res.redirect('/');
+    res.status(201).json({ success: true, message: 'Query created successfully!' });
+    
   } catch (err) {
-    res.status(500).send('Error saving query: ' + err.message);
+    res.status(500).json({ success: false, message: 'Error saving query: ' + err.message });
   }
 }
 
@@ -79,11 +94,14 @@ export async function updateQuery(req, res) {
   }
 }
 
-// Get all queries
+// indexPage 
 export async function getAllQueries(req, res) {
   try {
     const queries = await Query.find().sort({ createdAt: -1 }).lean();
-    res.render('index', { queries });
+    const totalQueries = queries.length;
+    const openQueries = queries.filter(query => query.status === 'Open').length;
+    const closedQueries = totalQueries - openQueries
+    res.render('index', { queries,totalQueries,openQueries,closedQueries });
   } catch (err) {
     res.status(500).send('Error fetching queries: ' + err.message);
   }

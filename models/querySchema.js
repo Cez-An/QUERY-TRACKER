@@ -1,6 +1,7 @@
 import { Schema, model as _model } from 'mongoose';
 
 const querySchema = new Schema({
+  queryNumber: { type: String, unique: true, required: true },
   authorName: String,
   sbNumber: String,
   model: String,

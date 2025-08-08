@@ -53,21 +53,6 @@ loader.load(
   }
 );
 
-// Smoke trails
-const smokeMaterial = new THREE.MeshBasicMaterial({
-  color: 0x888888,
-  transparent: true,
-  opacity: 0.3,
-});
-const smokeGeometry = new THREE.SphereGeometry(0.05, 8, 8);
-let smokeParticles = [];
-
-function createSmokeTrail(position) {
-  const particle = new THREE.Mesh(smokeGeometry, smokeMaterial.clone());
-  particle.position.copy(position);
-  scene.add(particle);
-  smokeParticles.push({ mesh: particle, velocityZ: -0.3 });
-}
 
 // Stars
 function addStars() {
@@ -110,13 +95,12 @@ document.getElementById("toggleMode").addEventListener("click", () => {
 });
 
 window.addEventListener("resize", () => {
-  camera.aspect =   .innerWidth / window.innerHeight;
+  camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
   console.log("📐 Window resized");
 });
 
-let smokeTimer = 0;
 function animate() {
   requestAnimationFrame(animate);
 
