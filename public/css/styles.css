@@ -20,9 +20,9 @@ body.dark-mode {
 }
 
 /* Hide scrollbar */
-body::-webkit-scrollbar {
+/* body::-webkit-scrollbar {
   display: none;
-}
+} */
 
 .container-background {
   background-color: rgba(255, 255, 255, 0.562);
@@ -82,7 +82,7 @@ body::-webkit-scrollbar {
   transition: box-shadow 0.2s;
 }
 .stat:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.548);
+  box-shadow: 0 4px 16px rgba(2, 83, 204, 0.438);
 }
 .stat-icon {
   font-size: 1.7rem;
@@ -130,7 +130,7 @@ canvas {
   margin-top: -45px;
   margin-left: 100px;
 }
-#query-tracker {
+/* #query-tracker {
   opacity: 0;
   visibility: hidden;
   transition: opacity 2s cubic-bezier(0.25, 0.1, 0.25, 1),
@@ -141,7 +141,7 @@ canvas {
   opacity: 1;
   visibility: visible;
   transition-delay: 0s;
-}
+} */
 .togglebtn {
   background: transparent;
   border: none;

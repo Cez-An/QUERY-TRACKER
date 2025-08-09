@@ -1,0 +1,51 @@
+ <!-- 🔁 Table View -->
+      <div id="tableView" style="display: none;">
+        <table class="table text-center table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Query ID</th>
+              <th class="text-start">Author</th>
+              <th>Model</th>
+              <th>Status</th>
+              <th>Created</th>
+              <th>Resolved</th>
+              <th>Comment</th>
+              <th>PDF</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% queries.forEach(query=> { %>
+              <tr>
+                <td>
+                  <%= query.queryNumber || 'Could not Generate Query Number' %>
+                </td>
+                <td class="text-start">
+                  <%= query.authorName %>
+                </td>
+                <td>
+                  <%= query.model %>
+                </td>
+                <td <% if (query.status === 'Open') { %>
+                  class="text-warning"
+                <% } else if (query.status === 'Closed') { %>
+                  class="text-success"
+                <% } %>>
+                  <%= query.status %>
+                </td>
+                <td>
+                  <%= query.createdAt.toDateString() %>
+                </td>
+                <td>
+                  <%= query.resolvedAt ? query.resolvedAt.toDateString() : '-' %>
+                </td>
+                <!-- <td>
+                  <% query.pdfFiles.forEach(file=> { %>
+                    <a href="#" onclick="openPDFModal('/pdf/<%= file %>')">View PDF</a><br />
+                    <% }) %>
+                </td> -->
+                <td><% query?.comment ? query.comment : '-' %></td>
+              </tr>
+              <% }) %>
+          </tbody>
+        </table>
+      </div>

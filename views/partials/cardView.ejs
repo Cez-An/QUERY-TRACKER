@@ -1,0 +1,59 @@
+ <!-- 🔁 Card View -->
+      <div id="cardView" class="row">
+
+        <% queries.forEach((query, index)=> { %>
+          <div class="col-md-6 mb-3">
+            <div class="card shadow-sm border">
+              <div class="card-body">
+                <h5 class="card-title text-primary">
+                  <%= query.queryNumber || 'Could not Generate Query Number' %>
+                </h5>
+                <p class="card-text mb-1"><strong>Author:</strong>
+                  <%= query.authorName %>
+                </p>
+                <p class="card-text mb-1"><strong>Created At:&nbsp;</strong>
+                  <%= query.createdAt.toDateString() %>
+                </p>
+                <p class="card-text mb-1"><strong>Revision:</strong>
+                  <%= query.revision %> | <strong>SB Number:</strong>
+                    <%= query.sbNumber %>
+                </p>
+                <p class="card-text mb-1">
+                  <strong>Model:</strong> <%= query.model %> |
+                  <strong>Status:</strong>
+                  <span style="border: 0.5px solid black; padding: 2px 3px; border-radius: 3px;" class=" <%= query.status === 'Open' ? 'text-danger' : 'text-success' %>">
+                    <%= query.status %>
+                  </span>
+                </p>
+                <p class="card-text mb-1"><strong>Resolver:</strong><%= query.resolverName %> 
+                </p>
+                <% if (query.resolvedAt) { %>
+                  <p class="card-text mb-1"><strong>Resolved At:</strong>
+                    <%= query.resolvedAt.toDateString() %>
+                  </p>
+                <% } else { %>
+                  <p class="card-text mb-1"><strong>Resolved At:</strong> Not Resolved</p>
+                <% } %> 
+                <% if (query.comment) { %>
+                  <p class="card-text"><strong>Comment:</strong>
+                    <%= query.comment %>
+                  </p>
+                <% } %>
+
+                <!-- Hidden input -->
+                <input type="file" id="pdfInput-<%= index %>" accept="application/pdf" style="display: none;"
+                  name="pdfFile" onchange="handleFileChange(<%=index%>)" />
+
+                <!-- Custom upload button -->
+                <button type="button" class="btn btn-primary btn-sm"
+                  onclick="document.getElementById('pdfInput-<%= index %>').click();">
+                  Click here to upload PDF
+                </button>
+
+                <!-- Selected file name -->
+                <p id="selectedFile-<%= index %>" class="mt-2 text-primary text-uppercase"></p>
+              </div>
+            </div>
+          </div>
+          <% }) %>
+      </div>

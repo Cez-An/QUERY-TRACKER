@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-undef */
 // Toggle between Day and Night Mode
 let isDay = true;
 document.getElementById("toggleMode").addEventListener("click", () => {
@@ -120,7 +122,7 @@ function saveQuery() {
         document.body.classList.remove("modal-open");
         const backdrop = document.querySelector(".modal-backdrop");
         if (backdrop) backdrop.remove();
-        
+        document.location.reload();
       } else {
         Swal.fire({
           position: "top-end",
@@ -146,3 +148,34 @@ function saveQuery() {
 
 // Add event listener to the save button
 document.getElementById("saveQueryBtn").addEventListener("click", saveQuery);
+
+//Export to CSV
+document.getElementById('exportCSV').addEventListener('click',()=>{
+  Swal.fire({
+    title:'Export to CSV',
+    text:"Are you sure you want to export the data to CSV?",
+    showConfirmButton: true,
+    showCancelButton: true,
+    cancelButtonText: 'Cancel',
+    preConfirm: () => {
+      // Trigger the CSV export
+      window.location.href = '/export';
+    }
+
+  })
+})
+
+//search button
+document.getElementById('searchButton').addEventListener('click',()=>{
+  const searchInput = document.getElementById('searchInput').value.trim();
+  if(!searchInput){
+    Swal.fire({
+      title:"Please enter a search term",
+      icon:'warning',
+      showConfirmButton:true,
+    })
+  } else {
+    window.location.href = `/?search=${searchInput}`;
+  }
+});
+

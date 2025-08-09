@@ -1,5 +1,5 @@
 <%- include("partials/head") %>
-  <script>
+  <!-- <script>
     document.addEventListener("DOMContentLoaded", function () {
       const tracker = document.getElementById("query-tracker");
       tracker.classList.remove("d-none");
@@ -8,7 +8,7 @@
       console.log("DOM fully loaded and parsed");
 
     });
-  </script>
+  </script> -->
   <script type="importmap">
 {
   "imports": {
@@ -28,14 +28,15 @@
         class="bi bi-moon-fill text-white"></i></button>
 
     <div class="content container">
+      <a href="/">
       <img src="/img/black-logo.png" id="black-logo" alt="Boeing Aerospace" class="content ">
       <img src="/img/white-logo.png" id="white-logo" alt="Boeing Aerospace" class="content"
-        style="display: none; position: relative;">
+        style="display: none; position: relative;"></a>
       <p id="tagline" style="position: relative;">Engineering the future of flight</p>
     </div>
 
 
-    <div id="query-tracker" class="container mt-4 mb-5 container-background p-4 rounded shadow-sm d-none">
+     <div id="query-tracker" class="container mt-4 mb-5 container-background p-4 rounded shadow-sm "> <!-- d-none -->
 
       <header class="main-header">
         <div class="header-content">
@@ -49,7 +50,7 @@
         <div class="stats mb-4">
           <div class="stat" id="totalQueries">
             <i class=" stat-icon bi bi-file-earmark-text-fill"></i>
-            <div><strong style="color: rgb(0, 26, 255);"><%= totalQueries %></strong> Total Queries</div>
+            <div><strong style="color: rgb(0, 0, 0);"><%= totalQueries %></strong> Total Queries</div>
           </div>
           <div class="stat" id="openQueries">
             <i class="stat-icon bi bi-journal"></i>
@@ -72,11 +73,11 @@
         </button>
 
         <div class="search-container">
-          <input class="search-input" type="text" placeholder="Type here to search...">
-        
+          <input class="search-input" id="searchInput" type="text" placeholder="Type here to search...">
+
             <i class="menu-button bi bi-three-dots-vertical"></i>
-        
-          <button class="search-button" type="button">
+
+          <button class="search-button" id="searchButton" type="button">
             <i class="bi bi-search"></i>
           </button>
 
@@ -100,110 +101,16 @@
         </div>
 
         <div class="ms-3">
-          <a href="/export" class="btn btn-secondary ms-2" style="border-radius: 0px;">Export to CSV</a>
+          <button class="btn btn-secondary ms-2" id="exportCSV" style="border-radius: 0px;">Export to CSV</button>
         </div>
       </div>
 
-
       <!-- 🔁 Table View -->
-      <div id="tableView" style="display: none;">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Author</th>
-              <th>Model</th>
-              <th>Status</th>
-              <th>Created</th>
-              <th>Resolved</th>
-              <!-- <th>PDF</th> -->
-            </tr>
-          </thead>
-          <tbody>
-            <% queries.forEach(query=> { %>
-              <tr>
-                <td>
-                  <%= query.authorName %>
-                </td>
-                <td>
-                  <%= query.model %>
-                </td>
-                <td>
-                  <%= query.status %>
-                </td>
-                <td>
-                  <%= query.createdAt.toDateString() %>
-                </td>
-                <td>
-                  <%= query.resolvedAt ? query.resolvedAt.toDateString() : '-' %>
-                </td>
-                <!-- <td>
-                  <% query.pdfFiles.forEach(file=> { %>
-                    <a href="#" onclick="openPDFModal('/pdf/<%= file %>')">View PDF</a><br />
-                    <% }) %>
-                </td> -->
-              </tr>
-              <% }) %>
-          </tbody>
-        </table>
-      </div>
+        <%- include("partials/tableView") %>
 
       <!-- 🔁 Card View -->
-      <div id="cardView" class="row">
-
-        <% queries.forEach((query, index)=> { %>
-          <div class="col-md-6 mb-3">
-            <div class="card shadow-sm border">
-              <div class="card-body">
-                <h5 class="card-title text-primary">
-                  <%= query.queryNumber || 'Could not Generate Query Number' %>
-                </h5>
-                <p class="card-text mb-1"><strong>Author:</strong>
-                  <%= query.authorName %>
-                </p>
-                <p class="card-text mb-1"><strong>Created At:&nbsp;</strong>
-                  <%= query.createdAt.toDateString() %>
-                </p>
-                <p class="card-text mb-1"><strong>Revision:</strong>
-                  <%= query.revision %> | <strong>SB Number:</strong>
-                    <%= query.sbNumber %>
-                </p>
-                <p class="card-text mb-1"><strong>Model:</strong>
-                  <%= query.model %> | <strong>Status:</strong>
-                    <%= query.status %>
-                </p>
-                <p class="card-text mb-1"><strong>Resolver:</strong><%= query.resolverName %> 
-                </p>
-                <% if (query.resolvedAt) { %>
-                  <p class="card-text mb-1"><strong>Resolved At:</strong>
-                    <%= query.resolvedAt.toDateString() %>
-                  </p>
-                <% } else { %>
-                  <p class="card-text mb-1"><strong>Resolved At:</strong> Not Resolved</p>
-                <% } %> 
-                <% if (query.comment) { %>
-                  <p class="card-text"><strong>Comment:</strong>
-                    <%= query.comment %>
-                  </p>
-                <% } %>
-
-                <!-- Hidden input -->
-                <input type="file" id="pdfInput-<%= index %>" accept="application/pdf" style="display: none;"
-                  name="pdfFile" onchange="handleFileChange(<%=index%>)" />
-
-                <!-- Custom upload button -->
-                <button type="button" class="btn btn-primary btn-sm"
-                  onclick="document.getElementById('pdfInput-<%= index %>').click();">
-                  Click here to upload PDF
-                </button>
-
-                <!-- Selected file name -->
-                <p id="selectedFile-<%= index %>" class="mt-2 text-primary text-uppercase"></p>
-              </div>
-            </div>
-          </div>
-          <% }) %>
-      </div>
-
+        <%- include("partials/cardView") %>
+    
     </div>
  
     <!-- Add New Query Modal -->

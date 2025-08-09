@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import multer, { diskStorage } from 'multer';
-import { getAllQueries, createQuery, updateQuery, viewPDF, exportToCSV } from '../controllers/queryController.js';
+import { getAllQueries, createQuery, viewPDF, exportToCSV } from '../controllers/queryController.js'; // updateQuery
 
 const router = Router();
 const storage = diskStorage({
@@ -9,10 +9,10 @@ const storage = diskStorage({
 });
 const upload = multer({ storage });
 
-
 router.get('/', getAllQueries);
 router.post('/add', createQuery);
-router.post('/update/:id', upload.array('pdfFiles'), updateQuery);
+
+// router.post('/update/:id', upload.array('pdfFiles'), updateQuery);
 router.get('/pdf/:filename', viewPDF);
 router.get('/export', exportToCSV);
 
