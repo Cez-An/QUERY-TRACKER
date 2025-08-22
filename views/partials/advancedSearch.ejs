@@ -1,0 +1,42 @@
+ <div
+      class="container rounded p-3"
+      id="advancedSearchDiv"
+      style="background-color: rgb(255, 255, 255)"
+    >
+      <div class="d-flex align-items-center justify-content-between">
+        <h3>Advanced Search and Filters ( Search PDF )</h3>
+        <h3>
+          <i
+            id="advancedSearchCloseBtn"
+            class="bi bi-x-circle text-secondary"
+          ></i>
+      </div>
+      <hr />
+      <div class="custom-keyword m-3">
+        <label for="" class="form-label">Keyword search</label>
+        <input
+          class="form-control w-25"
+          placeholder="Enter the Keyword to search"
+          type="text"
+        />
+      </div>
+      <div class="date-section d-flex gap-5 m-3">
+        <div class="mb-3">
+          <label class="form-label">Custom Date</label>
+          <input type="date" id="dateField" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Starting Date</label>
+          <input type="date" id="dateField" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Ending Date</label>
+          <input type="date" id="dateField" class="form-control" />
+        </div>
+      </div>
+      <div class="text-end">
+        <button class="btn btn-success">
+          <i class="bi bi-funnel-fill"></i>Apply Filter
+        </button>
+      </div>
+    </div>

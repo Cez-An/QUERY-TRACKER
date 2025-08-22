@@ -9,7 +9,7 @@
               <th>Status</th>
               <th>Created</th>
               <th>Resolved</th>
-              <th>Comment</th>
+              <!-- <th>Comment</th> -->
               <th>PDF</th>
             </tr>
           </thead>
@@ -36,14 +36,15 @@
                   <%= query.createdAt.toDateString() %>
                 </td>
                 <td>
-                  <%= query.resolvedAt ? query.resolvedAt.toDateString() : '-' %>
+                  <%= query.resolvedAt ? query.resolvedAt.toDateString() : 'Not Resolved' %>
                 </td>
                 <!-- <td>
                   <% query.pdfFiles.forEach(file=> { %>
                     <a href="#" onclick="openPDFModal('/pdf/<%= file %>')">View PDF</a><br />
                     <% }) %>
                 </td> -->
-                <td><% query?.comment ? query.comment : '-' %></td>
+                <!-- <td><% query?.comment ? query.comment : '-' %></td> -->
+                 <td></td>
               </tr>
               <% }) %>
           </tbody>

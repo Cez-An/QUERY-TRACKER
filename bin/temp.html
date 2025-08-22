@@ -1,13 +1,13 @@
-<div class="container mt-4 container-background p-4 rounded shadow-sm">
-
+<!-- <div class="container mt-4 container-background p-4 rounded shadow-sm"> -->
+<!-- 
     <header class="main-header">
       <div class="header-content">
         <h1 class="app-title text-uppercase">Query Tracker</h1>
         <p class="subtitle">Fleet SB Team</p>
       </div>
-    </header>
+    </header> -->
 
-    <section class="dashboard-section card">
+    <!-- <section class="dashboard-section card">
       <h2 class="section-title">Dashboard</h2>
       <div class="stats">
         <div class="stat" id="totalQueries">
@@ -24,18 +24,18 @@
           <div><strong>0</strong> Closed</div>
         </div>
       </div>
-    </section>
+    </section> -->
 
 
     <!-- Open New Query Button -->
-    <div class="text-end mb-4">
+    <!-- <div class="text-end mb-4">
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newQueryModal">
         <i class="bi bi-plus-circle me-1"></i> Open New Query
       </button>
-    </div>
+    </div> -->
 
     <!-- New Query Modal -->
-    <div class="modal fade" id="newQueryModal" tabindex="-1" aria-labelledby="newQueryModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="newQueryModal" tabindex="-1" aria-labelledby="newQueryModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
@@ -49,20 +49,20 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <hr />
+    <!-- <hr /> -->
 
     <!-- Toggle Button -->
-    <div class="text-end mb-3">
-      <button class="btn btn-secondary" onclick="toggleView()">Toggle View</button>
+    <!-- <div class="text-end mb-3"> -->
+      <!-- <button class="btn btn-secondary" onclick="toggleView()">Toggle View</button>
       <a href="/export" class="btn btn-success ms-2">Export to CSV</a>
-    </div>
+    </div> -->
 
     <!-- 🔁 Card View -->
-    <div id="cardView" class="row">
+    <!-- <div id="cardView" class="row"> -->
 
-      <% queries.forEach((query, index)=> { %>
+      <!-- <% queries.forEach((query, index)=> { %>
         <div class="col-md-6 mb-3">
           <div class="card shadow-sm border">
             <div class="card-body">
@@ -88,28 +88,28 @@
                   <%= query.resolvedAt ? query.resolvedAt.toISOString().slice(0, 10) : '-' %>
               </p>
               <p class="card-text"><strong>Comment:</strong>
-                <%= query.comment %>
-              </p>
+                <%= query.comment %> -->
+              <!-- </p> -->
 
               <!-- Hidden input -->
-              <input type="file" id="pdfInput-<%= index %>" accept="application/pdf" style="display: none;"
-                name="pdfFile" onchange="handleFileChange(<%= index %>)" />
+              <!-- <input type="file" id="pdfInput-<%= index %>" accept="application/pdf" style="display: none;"
+                name="pdfFile" onchange="handleFileChange(<%= index %>)" /> -->
 
               <!-- Custom upload button -->
-              <button type="button" class="btn btn-primary btn-sm"
+              <!-- <button type="button" class="btn btn-primary btn-sm"
                 onclick="document.getElementById('pdfInput-<%= index %>').click();">
                 Click here to upload PDF
-              </button>
+              </button> -->
 
               <!-- Selected file name -->
-              <p id="selectedFile-<%= index %>" class="mt-2 text-primary text-uppercase"></p>
+              <!-- <p id="selectedFile-<%= index %>" class="mt-2 text-primary text-uppercase"></p>
             </div>
           </div>
         </div>
         <% }) %>
-    </div>
+    </div> -->
 
-    <!-- 🔁 Table View -->
+    <!-- 🔁 Table View
     <div id="tableView" style="display: none;">
       <table class="table table-striped">
         <thead>
@@ -149,7 +149,7 @@
             <% }) %>
         </tbody>
       </table>
-    </div>
+    </div> -->
 
 
     <!-- ✅ Export to CSV Button -->
@@ -242,7 +242,7 @@
     </table> -->
 
     <!-- ✅ Modal PDF Viewer -->
-    <div id="pdfViewerContainer" class="modal" aria-label="PDF Viewer">
+    <!-- <div id="pdfViewerContainer" class="modal" aria-label="PDF Viewer">
       <div class="modal-content">
         <button id="closePdfBtn" class="btn btn-icon close-btn" title="Close PDF Viewer">
           close <i class="bi bi-x-lg text-danger "></i>
@@ -250,7 +250,7 @@
 
         <iframe id="pdfViewer" title="PDF Viewer"></iframe>
       </div>
-    </div>
+    </div> -->
 
 
     <!-- <div id="pdfViewerContainer" class="border p-3 mt-4" style="display: none;">
@@ -261,4 +261,114 @@
       <iframe id="pdfFrame" src="" width="100%" height="600px" style="border: 1px solid #ccc;"></iframe>
     </div> -->
 
-  </div>
+  <!-- </div> -->
+   <!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll Buttons</title> -->
+  <!-- <style>
+    body {
+      min-height: 2000px; /* Just to make page scrollable */
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    } -->
+
+    <!-- /* Common button styles */
+    .scroll-btn {
+      position: fixed;
+      right: 20px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      background: #007bff;
+      color: white;
+      font-size: 16px;
+      box-shadow: 0px 3px 6px rgba(0,0,0,0.3);
+      transition: opacity 0.3s ease;
+    }
+
+    #scrollTop {
+      bottom: 80px; /* top button above bottom button */
+    }
+
+    #scrollBottom {
+      bottom: 20px;
+    }
+
+    .scroll-btn:hover {
+      background: #0056b3;
+    } -->
+  <!-- </style> -->
+<!-- </head> -->
+<!-- <body> -->
+
+  <!-- <h1>Scroll Example</h1> -->
+  <!-- <p>Scroll down and use the buttons to jump to top or bottom.</p> -->
+
+  <!-- Buttons -->
+  <!-- <button id="scrollTop" class="scroll-btn">↑</button>
+  <button id="scrollBottom" class="scroll-btn">↓</button> -->
+
+  <!-- <script> -->
+    <!-- const scrollTopBtn = document.getElementById("scrollTop");
+    const scrollBottomBtn = document.getElementById("scrollBottom");
+
+    // Scroll to top
+    scrollTopBtn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+
+    // Scroll to bottom
+//     scrollBottomBtn.addEventListener("click", () => {
+//       window.scrollTo({
+//         top: document.body.scrollHeight,
+//         behavior: "smooth"
+//       });
+//     }); -->
+  <!-- // </script> -->
+
+<!-- // </body> -->
+<!-- // </html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSAP Example</title>
+  <style>
+    #box {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      position: absolute;
+      top: 50px;
+      left: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="box"></div>
+
+  <!-- GSAP Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  
+  <script>
+    // Animate the box: move right 300px, rotate 360 degrees, scale up
+    gsap.to("#box", { 
+      x: 300,           // move right
+      rotation: 360,    // rotate
+      scale: 1.5,       // grow bigger
+      duration: 2,      // 2 seconds
+      ease: "power2.inOut" // smooth easing
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,4 @@
+2025-08-17T15:25:56.006Z
+splitted loading page and search into sepreate controller.
+status code enum introduced 
+advanced search implemented

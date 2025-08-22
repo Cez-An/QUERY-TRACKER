@@ -1,5 +1,5 @@
 <%- include("partials/head") %>
-  <!-- <script>
+<!-- <script>
     document.addEventListener("DOMContentLoaded", function () {
       const tracker = document.getElementById("query-tracker");
       tracker.classList.remove("d-none");
@@ -9,112 +9,180 @@
 
     });
   </script> -->
-  <script type="importmap">
-{
-  "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.178.0/build/three.module.js",
-    "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.178.0/examples/jsm/"
+
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.178.0/build/three.module.js",
+      "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.178.0/examples/jsm/"
+    }
   }
-}
 </script>
 
-  <!-- <script type="module" src="/js/3d-background.js"></script> -->
+<!-- <script type="module" src="/js/3d-background.js"></script> -->
 
-  <body>
+<body>
+  <!-- <canvas id="bgCanvas"></canvas> -->
+  <!-- toggle button DAY / NIGHT-->
+  <button
+    id="toggleMode"
+    class="position-fixed btn btn-secondary rounded-circle"
+  >
+    <i id="togglebtn" class="bi bi-moon-fill text-white"></i>
+  </button>
+  <!-- got to top button -->
+  <i
+    id="upButton"
+    class="position-fixed fs-2 scroll-btn bi bi-arrow-up-circle"
+    data-bs-toggle="tooltip" 
+    data-bs-placement="top"
+    data-bs-title="Scroll to top"
+  ></i>
+  <!-- got to down button -->
+  <i
+    id="downButton"
+    class="position-fixed fs-2 scroll-btn bi bi-arrow-down-circle"
+    data-bs-toggle="tooltip"
+    data-bs-placement="bottom"
+    data-bs-title="Scroll to bottom"
+  ></i>
 
-    <!-- <canvas id="bgCanvas"></canvas> -->
+  <div class="content container">
+    <a href="/">
+      <img
+        src="/img/black-logo.png"
+        id="black-logo"
+        alt="Boeing Aerospace"
+        class="content" />
+      <img
+        src="/img/white-logo.png"
+        id="white-logo"
+        alt="Boeing Aerospace"
+        class="content"
+        style="display: none; position: relative"
+    /></a>
+    <p id="tagline" style="position: relative">
+      Engineering the future of flight
+    </p>
+  </div>
 
-    <button id="toggleMode" class="btn btn-secondary rounded-circle"><i id="togglebtn"
-        class="bi bi-moon-fill text-white"></i></button>
+  <div
+    id="query-tracker"
+    class="container mt-4 mb-5 container-background p-4 rounded shadow-sm"
+  >
+    <!-- d-none -->
 
-    <div class="content container">
-      <a href="/">
-      <img src="/img/black-logo.png" id="black-logo" alt="Boeing Aerospace" class="content ">
-      <img src="/img/white-logo.png" id="white-logo" alt="Boeing Aerospace" class="content"
-        style="display: none; position: relative;"></a>
-      <p id="tagline" style="position: relative;">Engineering the future of flight</p>
+    <header class="main-header">
+      <div class="header-content">
+        <h1 class="app-title text-uppercase">Query Tracker</h1>
+        <p class="subtitle">Fleet SB Team</p>
+      </div>
+    </header>
+
+    <section class="dashboard-section card">
+      <h2 class="section-title">Dashboard</h2>
+      <div class="stats mb-4">
+        <div class="stat" id="totalQueries">
+          <i class="stat-icon bi bi-file-earmark-text-fill"></i>
+          <div>
+            <strong style="color: rgb(0, 0, 0)"> <%= totalQueries %> </strong>
+            Total Queries
+          </div>
+        </div>
+        <div class="stat" id="openQueries">
+          <i class="stat-icon bi bi-journal"></i>
+          <div>
+            <strong style="color: rgb(0, 102, 255)">
+              <%= openQueries %>
+            </strong>
+            Open
+          </div>
+        </div>
+
+        <div class="stat" id="closedQueries">
+          <i class="stat-icon bi bi-journal-check"></i>
+          <div>
+            <strong style="color: rgb(0, 153, 51)">
+              <%= closedQueries %>
+            </strong>
+            Closed
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <br />
+
+    <div class="container d-flex gap-2 mb-4">
+      <button
+        type="button"
+        class="btn btn-primary col-4"
+        data-bs-toggle="modal"
+        data-bs-target="#AddQueryModal"
+      >
+        <i class="bi bi-plus-circle"></i> &nbsp;Open New Query
+      </button>
+
+      <div class="search-container">
+        <input
+          class="search-input"
+          id="searchInput"
+          type="text"
+          placeholder="Type here to search..."
+        />
+
+        <i class="menu-button bi bi-three-dots-vertical"></i>
+
+        <button class="search-button" id="searchButton" type="button">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+      <button type="button" class="btn btn-dark col-2" id="advancedSearch">
+        Advanced Search
+      </button>
     </div>
 
+    <!-- Advanced Search =============================================================================================== -->
+    <%- include("partials/advancedSearch") %>
 
-     <div id="query-tracker" class="container mt-4 mb-5 container-background p-4 rounded shadow-sm "> <!-- d-none -->
+    <hr style="color: rgb(0, 0, 0); height: 30px" />
 
-      <header class="main-header">
-        <div class="header-content">
-          <h1 class="app-title text-uppercase">Query Tracker</h1>
-          <p class="subtitle">Fleet SB Team</p>
-        </div>
-      </header>
-
-      <section class="dashboard-section card ">
-        <h2 class="section-title">Dashboard</h2>
-        <div class="stats mb-4">
-          <div class="stat" id="totalQueries">
-            <i class=" stat-icon bi bi-file-earmark-text-fill"></i>
-            <div><strong style="color: rgb(0, 0, 0);"><%= totalQueries %></strong> Total Queries</div>
-          </div>
-          <div class="stat" id="openQueries">
-            <i class="stat-icon bi bi-journal"></i>
-            <div><strong style="color: rgb(0, 102, 255);"><%= openQueries %></strong> Open</div>
-          </div>
-
-          <div class="stat" id="closedQueries">
-            <i class="stat-icon bi bi-journal-check"></i>
-            <div><strong style="color: rgb(0, 153, 51);"><%= closedQueries %></strong> Closed</div>
-          </div>
-        </div>
-      </section>
-
-      <br>
-
-      <div class="container d-flex gap-2 mb-4">
-
-        <button type="button" class="btn btn-primary col-4 " data-bs-toggle="modal" data-bs-target="#AddQueryModal">
-          <i class="bi bi-plus-circle"></i> &nbsp;Open New Query
-        </button>
-
-        <div class="search-container">
-          <input class="search-input" id="searchInput" type="text" placeholder="Type here to search...">
-
-            <i class="menu-button bi bi-three-dots-vertical"></i>
-
-          <button class="search-button" id="searchButton" type="button">
-            <i class="bi bi-search"></i>
-          </button>
-
-        </div>
-        <button type="button" class="btn btn-dark col-2">
-          Advance Search
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <div class="me-3">
+        <button class="btn togglebtn" onclick="toggleView()">
+          <i class="bi bi-list-ul"></i>
         </button>
       </div>
 
-
-      <hr style="color: rgb(0, 0, 0); height:30px">
-
-      <div class="d-flex align-items-center justify-content-between mb-3">
-
-        <div class="me-3">
-          <button class="btn togglebtn" onclick="toggleView()"><i class="bi bi-list-ul"></i></button>
-        </div>
-
-        <div class="flex-grow-1 text-center">
-          <h2 class="text-center"><strong>Stored Queries</strong></h2>
-        </div>
-
-        <div class="ms-3">
-          <button class="btn btn-secondary ms-2" id="exportCSV" style="border-radius: 0px;">Export to CSV</button>
-        </div>
+      <div class="flex-grow-1 text-center">
+        <h2 class="text-center"><strong>Stored Queries</strong></h2>
       </div>
 
-      <!-- 🔁 Table View -->
-        <%- include("partials/tableView") %>
-
-      <!-- 🔁 Card View -->
-        <%- include("partials/cardView") %>
-    
+      <div class="ms-3">
+        <button
+          class="btn btn-secondary ms-2"
+          id="exportCSV"
+          style="border-radius: 0px"
+        >
+          Export to CSV
+        </button>
+      </div>
     </div>
- 
-    <!-- Add New Query Modal -->
-    <%-include("partials/addNewQuery") %>
 
+    <!-- 🔁 Table View -->
+    <%- include("partials/tableView") %>
 
-    <%-include("partials/footer")%>
+    <!-- 🔁 Card View -->
+    <%- include("partials/cardView") %>
+  </div>
+
+  <!-- Add New Query Modal -->
+  <!-- prettier-ignore -->
+  <%-include("partials/addNewQuery") %>
+
+  <!-- PDF Viewer Modal -->
+  <%-include("partials/pdfviewmodal")%>
+
+  <!-- prettier-ignore -->
+  <%-include("partials/footer")%>
+</body>

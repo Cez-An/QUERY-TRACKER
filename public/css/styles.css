@@ -27,6 +27,7 @@ body.dark-mode {
 .container-background {
   background-color: rgba(255, 255, 255, 0.562);
   backdrop-filter: blur(10px);
+  isolation: isolate;
 }
 .main-header {
   width: 100%;
@@ -264,7 +265,6 @@ canvas {
   }
 }
 
-
 .swal-danger .swal2-timer-progress-bar {
   background: #dc3545 !important;
 }
@@ -279,4 +279,49 @@ canvas {
 
 .swal-info .swal2-timer-progress-bar {
   background: #0d6efd !important;
+}
+
+#advancedSearchCloseBtn {
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+#advancedSearchCloseBtn:hover {
+  color: #dc3545 !important;
+}
+
+#advancedSearchDiv {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.2s ease;
+}
+
+#advancedSearchDiv.show {
+  max-height: 1000px; 
+  opacity: 1;
+  transition: max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.2s ease;
+}
+
+.advanced-search-day {
+  background-color: rgb(255, 255, 255) !important;
+}
+
+.advanced-search-night {
+  background-color: rgba(40, 44, 52, 0.377) !important;
+  color: #fff;
+}
+#upButton{
+  cursor: pointer;
+  bottom: 80px;
+  right: 20px;
+}
+#downButton{
+  cursor: pointer;
+  bottom: 20px;
+  right: 20px;
+}
+.scroll-btn:hover {
+  background-color: #007bff00;
+  color:  rgb(53, 166, 166);
 }
